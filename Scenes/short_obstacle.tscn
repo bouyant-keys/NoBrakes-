@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxy8mhh8ed0yj"]
+
+[ext_resource type="Script" path="res://Scripts/obstacle.gd" id="1_b3urw"]
+[ext_resource type="Texture2D" uid="uid://cr6uy657jnnro" path="res://Sprites/Obstacle_Shadow.png" id="2_ggwaq"]
+[ext_resource type="Texture2D" uid="uid://uv5rrluv0mdi" path="res://Sprites/Short_Obstacles/Logs.png" id="3_358jg"]
+[ext_resource type="Texture2D" uid="uid://cdq1maai07iot" path="res://Sprites/_Road/SpeedArrows.png" id="4_tmkyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wfv2l"]
+size = Vector2(44, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gemff"]
+size = Vector2(16, 16)
+
+[node name="Short_Obstacle" type="Area2D" groups=["Obstacle"]]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_b3urw")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, 32)
+texture = ExtResource("2_ggwaq")
+offset = Vector2(0, -60)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, 32)
+texture = ExtResource("3_358jg")
+offset = Vector2(0, -64)
+
+[node name="SpeedUPSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("4_tmkyo")
+offset = Vector2(0, -48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_wfv2l")
+debug_color = Color(0.996078, 0, 0.172549, 0.419608)
+
+[node name="JumpArea" type="Area2D" parent="."]
+position = Vector2(0, -32)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="JumpTrigger" type="CollisionShape2D" parent="JumpArea"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_gemff")
+debug_color = Color(0, 0.647059, 0.266667, 0.419608)

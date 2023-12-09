@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbmq108whs78e"]
+
+[ext_resource type="Script" path="res://Scripts/obstacle.gd" id="1_myrnr"]
+[ext_resource type="Texture2D" uid="uid://ci40lj3oar8h0" path="res://Sprites/Tall_Obstacles/Car_Front_Obstacle.png" id="2_kf565"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iohjj"]
+size = Vector2(42, 39)
+
+[node name="Car1_Front" type="StaticBody2D" groups=["Obstacle"]]
+script = ExtResource("1_myrnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_kf565")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12.5)
+shape = SubResource("RectangleShape2D_iohjj")

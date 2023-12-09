@@ -1,0 +1,58 @@
+[gd_resource type="Resource" load_steps=12 format=3 uid="uid://rr8fw64vwuxr"]
+
+[ext_resource type="Script" path="res://Scripts/ScoreList.gd" id="1_2twpn"]
+[ext_resource type="Resource" uid="uid://cc0o2tttmdfn3" path="res://Resources/Score.tres" id="1_q0qqv"]
+[ext_resource type="Script" path="res://Scripts/Score.gd" id="2_yic8g"]
+
+[sub_resource type="Resource" id="Resource_lewjm"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 50000
+
+[sub_resource type="Resource" id="Resource_vfswt"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 30000
+
+[sub_resource type="Resource" id="Resource_3s88g"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 25000
+
+[sub_resource type="Resource" id="Resource_nje20"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 20000
+
+[sub_resource type="Resource" id="Resource_ws2vf"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 15000
+
+[sub_resource type="Resource" id="Resource_5s06q"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 10000
+
+[sub_resource type="Resource" id="Resource_k8af0"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 5000
+
+[sub_resource type="Resource" id="Resource_polxt"]
+script = ExtResource("2_yic8g")
+name = "CPU"
+time = 0
+score = 1000
+
+[resource]
+script = ExtResource("1_2twpn")
+null_score = ExtResource("1_q0qqv")
+score_array = [SubResource("Resource_lewjm"), SubResource("Resource_vfswt"), SubResource("Resource_3s88g"), SubResource("Resource_nje20"), SubResource("Resource_ws2vf"), SubResource("Resource_5s06q"), SubResource("Resource_k8af0"), SubResource("Resource_polxt")]

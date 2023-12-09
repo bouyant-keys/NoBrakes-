@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://dsjt21hpgl6e"]
+
+[ext_resource type="Script" path="res://Scripts/Obstacle_Spawner.gd" id="1_hj16l"]
+[ext_resource type="Texture2D" uid="uid://cbe71iadaq40f" path="res://Sprites/Interact_Visual.png" id="2_rgumu"]
+[ext_resource type="Script" path="res://Scripts/Obstacle_Sprites.gd" id="2_tfkab"]
+[ext_resource type="Script" path="res://Scripts/RoadOriginPos.gd" id="3_io5g7"]
+[ext_resource type="Script" path="res://Scripts/EndRoadPos.gd" id="5_aduw6"]
+
+[sub_resource type="Curve" id="Curve_gu7h8"]
+_data = [Vector2(0.25, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 4.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_urlis"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.19453, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_ic875"]
+max_value = 0.8
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.801858, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="ObstacleSpawner" type="Node2D"]
+script = ExtResource("1_hj16l")
+boost_curve = SubResource("Curve_gu7h8")
+speed_curve = SubResource("Curve_urlis")
+x_offset_curve = SubResource("Curve_ic875")
+boost_change = 1.5
+
+[node name="SpriteList" type="Node2D" parent="."]
+script = ExtResource("2_tfkab")
+
+[node name="RoadLinearOrigin" type="Node2D" parent="."]
+position = Vector2(320, 240)
+
+[node name="Sprite2D" type="Sprite2D" parent="RoadLinearOrigin"]
+visible = false
+texture = ExtResource("2_rgumu")
+
+[node name="RoadCurveOrigin" type="Node2D" parent="."]
+script = ExtResource("3_io5g7")
+
+[node name="Sprite2D" type="Sprite2D" parent="RoadCurveOrigin"]
+visible = false
+self_modulate = Color(0, 1, 1, 1)
+texture = ExtResource("2_rgumu")
+
+[node name="RoadEndPos" type="Node2D" parent="."]
+position = Vector2(320, 480)
+script = ExtResource("5_aduw6")
+offset_mult = 1.4
+
+[node name="Sprite2D" type="Sprite2D" parent="RoadEndPos"]
+visible = false
+self_modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_rgumu")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 1.3
+
+[node name="SpawnTimer2" type="Timer" parent="."]
+wait_time = 2.43
+
+[node name="SpawnTimer3" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="SpawnTimer" to="." method="spawn_onroad"]
+[connection signal="timeout" from="SpawnTimer2" to="." method="spawn_onroad"]
+[connection signal="timeout" from="SpawnTimer3" to="." method="spawn_onroad"]

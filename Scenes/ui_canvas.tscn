@@ -1,0 +1,806 @@
+[gd_scene load_steps=22 format=3 uid="uid://cyd5xpcp6vbt"]
+
+[ext_resource type="Script" path="res://Scripts/ui_canvas.gd" id="1_37gxr"]
+[ext_resource type="Shader" path="res://Materials/Horizontal_Scroll.gdshader" id="2_x4k3b"]
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="3_2c5on"]
+[ext_resource type="Texture2D" uid="uid://5cb2gsqe06fu" path="res://Sprites/_Road/outrun-road_SkyFull.png" id="3_030bx"]
+[ext_resource type="FontFile" uid="uid://mcoftgppvxqx" path="res://Fonts/OwlsNInk.ttf" id="3_x103b"]
+[ext_resource type="Texture2D" uid="uid://b4e5a3gqyxund" path="res://Sprites/UI/LicenseTitle.png" id="4_duyws"]
+[ext_resource type="Script" path="res://Scripts/ResultsScreen.gd" id="6_bha0w"]
+[ext_resource type="Texture2D" uid="uid://lcdepnmh78vj" path="res://Sprites/UI/StartLights.png" id="7_bdsao"]
+[ext_resource type="Texture2D" uid="uid://djtyubyuvn2jr" path="res://Sprites/UI/StartLight_Off.png" id="8_t45m4"]
+[ext_resource type="Texture2D" uid="uid://cqvsdp5gdjgvs" path="res://Sprites/UI/ui_panel_bit.png" id="9_yfr1n"]
+[ext_resource type="Texture2D" uid="uid://cx6g41yilyokf" path="res://Sprites/UI/ProgressUnit_Alt.png" id="10_elb6t"]
+[ext_resource type="AudioStream" uid="uid://bpva2wyb0eyp8" path="res://Audio/SFX/Countdown.wav" id="10_fijr8"]
+[ext_resource type="AudioStream" uid="uid://bjjtqdebfurxv" path="res://Audio/SFX/Select.wav" id="11_0x2sw"]
+[ext_resource type="AudioStream" uid="uid://dfq1bxidh1iet" path="res://Audio/SFX/CountdownFinal.wav" id="11_nryx7"]
+[ext_resource type="Texture2D" uid="uid://dfsxkd0n6j1en" path="res://Sprites/UI/TireTread_BG.png" id="12_86g4l"]
+[ext_resource type="AudioStream" uid="uid://cmk128x47dv56" path="res://Audio/SFX/Jingle.wav" id="16_gnqye"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0pqq"]
+shader = ExtResource("2_x4k3b")
+shader_parameter/tex_offset = null
+shader_parameter/scroll_speed = 0.05
+
+[sub_resource type="Animation" id="Animation_yrs71"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/StartText:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/StartButton:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y5kxp"]
+resource_name = "Start_Pressed_Hold"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/StartText:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.698039, 0.254902, 1), Color(1, 0, 0.254902, 1), Color(1, 0.698039, 0.254902, 1), Color(1, 0, 0.254902, 1), Color(1, 0.698039, 0.254902, 1), Color(1, 0, 0.254902, 1), Color(1, 0.698039, 0.254902, 1), Color(1, 0, 0.254902, 1), Color(1, 0.698039, 0.254902, 1), Color(1, 0, 0.254902, 1), Color(1, 0.698039, 0.254902, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/StartButton:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.913725, 0.780392, 1, 1), Color(1, 1, 1, 1), Color(0.913725, 0.780392, 1, 1), Color(1, 1, 1, 1), Color(0.913725, 0.780392, 1, 1), Color(1, 1, 1, 1), Color(0.913725, 0.780392, 1, 1), Color(1, 1, 1, 1), Color(0.913725, 0.780392, 1, 1), Color(1, 1, 1, 1), Color(0.913725, 0.780392, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8aext"]
+resource_name = "text_flash_loop"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/StartText:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0.784314, 0.254902, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/StartButton:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0.784314, 0.254902, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6h27n"]
+_data = {
+"RESET": SubResource("Animation_yrs71"),
+"Start_Pressed_Hold": SubResource("Animation_y5kxp"),
+"text_flash_loop": SubResource("Animation_8aext")
+}
+
+[node name="UICanvas" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_37gxr")
+metadata/_edit_use_anchors_ = true
+
+[node name="StartMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Start_BG" type="TextureRect" parent="StartMenu"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_d0pqq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_030bx")
+
+[node name="TextureRect" type="TextureRect" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 169.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(128, 0)
+texture = ExtResource("4_duyws")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -172.0
+offset_right = 108.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StartText" type="Label" parent="StartMenu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "
+
+- Press Start -"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FauxCopyright" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "
+
+Copyright 2023 Keys Interactive"
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Space" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "
+
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicLabel" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "Music Volume: "
+vertical_alignment = 2
+
+[node name="MusicSlider" type="HSlider" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 6
+min_value = -60.0
+max_value = 0.0
+value = -12.0
+
+[node name="SFXLabel" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = " SFX Volume:"
+vertical_alignment = 2
+
+[node name="SFXSlider" type="HSlider" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 6
+min_value = -60.0
+max_value = 0.0
+value = -12.0
+
+[node name="Space3" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="StartButton" type="Button" parent="StartMenu/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = " START "
+
+[node name="Space2" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="StartMenuTextFlash" type="AnimationPlayer" parent="StartMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_6h27n")
+}
+
+[node name="HUD" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_2c5on")
+
+[node name="TutorialLabel1" type="Label" parent="HUD"]
+self_modulate = Color(1, 0.172549, 0.176471, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -274.0
+offset_right = 274.0
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "
+
+Use A and D to move left and right
+Use SPACE to jump over small obstacles"
+horizontal_alignment = 1
+
+[node name="StartLights" type="TextureRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 32.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(64, 0)
+texture = ExtResource("7_bdsao")
+stretch_mode = 2
+
+[node name="LightCover1" type="TextureRect" parent="HUD/StartLights"]
+layout_mode = 2
+anchor_left = 0.0234375
+anchor_right = 0.273438
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_t45m4")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LightCover2" type="TextureRect" parent="HUD/StartLights"]
+layout_mode = 2
+anchor_left = 0.257813
+anchor_right = 0.507813
+anchor_bottom = 1.0
+texture = ExtResource("8_t45m4")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LightCover3" type="TextureRect" parent="HUD/StartLights"]
+layout_mode = 2
+anchor_left = 0.492188
+anchor_right = 0.742188
+anchor_bottom = 1.0
+texture = ExtResource("8_t45m4")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LightCover4" type="TextureRect" parent="HUD/StartLights"]
+layout_mode = 2
+anchor_left = 0.726563
+anchor_right = 0.976563
+anchor_bottom = 1.0
+texture = ExtResource("8_t45m4")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TimePanel" type="NinePatchRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.16875
+anchor_bottom = 0.0729167
+offset_bottom = -3.0
+texture = ExtResource("9_yfr1n")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="TIME" type="Label" parent="HUD/TimePanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -9.5
+offset_right = 47.0
+offset_bottom = 9.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+text = " TIME: "
+vertical_alignment = 2
+
+[node name="TimeLabel" type="Label" parent="HUD/TimePanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -9.5
+offset_bottom = 9.5
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("3_x103b")
+text = "00:00.00 "
+horizontal_alignment = 3
+vertical_alignment = 2
+
+[node name="ScorePanel" type="NinePatchRect" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.796875
+anchor_right = 1.0
+anchor_bottom = 0.0729167
+offset_bottom = -3.0
+grow_horizontal = 0
+texture = ExtResource("9_yfr1n")
+region_rect = Rect2(0, 0, 32, 32)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="SCORE" type="Label" parent="HUD/ScorePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.314286
+anchor_right = 0.469231
+anchor_bottom = 0.771429
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+text = " SCORE: "
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PointsLabel" type="Label" parent="HUD/ScorePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.469231
+anchor_top = 0.314286
+anchor_right = 1.0
+anchor_bottom = 0.771429
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+text = "00000000 "
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthUnits" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -19.0
+offset_right = 249.0
+grow_vertical = 0
+
+[node name="HealthUnit1" type="TextureRect" parent="HUD/HealthUnits"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_elb6t")
+stretch_mode = 2
+
+[node name="HealthUnit2" type="TextureRect" parent="HUD/HealthUnits"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_elb6t")
+stretch_mode = 2
+
+[node name="HealthUnit3" type="TextureRect" parent="HUD/HealthUnits"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_elb6t")
+stretch_mode = 2
+
+[node name="Countdown_SFX" type="AudioStreamPlayer" parent="HUD"]
+stream = ExtResource("10_fijr8")
+volume_db = -12.0
+
+[node name="CountdownFinal_SFX" type="AudioStreamPlayer" parent="HUD"]
+stream = ExtResource("11_nryx7")
+volume_db = -12.0
+
+[node name="PauseMenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BorderL" type="TextureRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_right = 160.0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_86g4l")
+stretch_mode = 1
+
+[node name="BorderR" type="TextureRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_right = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_86g4l")
+stretch_mode = 1
+flip_v = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.38125
+anchor_right = 0.61875
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "- PAUSED -"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Separator" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "
+
+
+
+"
+
+[node name="MusicLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "Music Volume: "
+vertical_alignment = 2
+
+[node name="MusicSlider" type="HSlider" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 6
+min_value = -60.0
+max_value = 0.0
+value = -6.0
+
+[node name="SFXLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = " SFX Volume:"
+vertical_alignment = 2
+
+[node name="SFXSlider" type="HSlider" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 6
+min_value = -60.0
+max_value = 0.0
+value = -6.0
+
+[node name="Separator2" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+
+[node name="ContinueButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "CONTINUE"
+vertical_icon_alignment = 0
+
+[node name="RestartButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "RESTART"
+vertical_icon_alignment = 0
+
+[node name="MenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "MAIN MENU"
+vertical_icon_alignment = 0
+
+[node name="Results" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("6_bha0w")
+
+[node name="ResultsBG" type="TextureRect" parent="Results"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_030bx")
+
+[node name="Initials" type="Control" parent="Results"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="Results/Initials"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 28.0
+offset_right = 120.0
+offset_bottom = 63.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Enter your initials:"
+
+[node name="Instructions" type="Label" parent="Results/Initials"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -245.0
+offset_top = -115.0
+offset_right = 245.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Hit DELETE/BACKSPACE to go back."
+
+[node name="Instructions2" type="Label" parent="Results/Initials"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.0
+offset_top = -75.0
+offset_right = 137.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Hit ENTER to submit."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Results/Initials"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -110.0
+offset_bottom = 21.0001
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Letter1" type="Label" parent="Results/Initials/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 128
+text = "A"
+
+[node name="Letter2" type="Label" parent="Results/Initials/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 128
+text = "A"
+
+[node name="Letter3" type="Label" parent="Results/Initials/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 128
+text = "A"
+
+[node name="Scores" type="Control" parent="Results"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Results/Scores"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Results/Scores/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Results:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ScoreList" type="ItemList" parent="Results/Scores/VBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_colors/font_selected_color = Color(0.87451, 0.87451, 0.337255, 1)
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+allow_search = false
+auto_height = true
+item_count = 10
+item_0/text = "CPU 00:00.00 00000000"
+item_1/text = "Score2"
+item_2/text = "Score3"
+item_3/text = "Score4"
+item_4/text = "Score4"
+item_5/text = "Score5"
+item_6/text = "Score6"
+item_7/text = "Score7"
+item_8/text = "Score8"
+item_9/text = "PlayerScore"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Results/Scores/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 128
+alignment = 1
+
+[node name="Menu Button" type="Button" parent="Results/Scores/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+
+[node name="Restart Button" type="Button" parent="Results/Scores/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+
+[node name="ButtonPressed_SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_0x2sw")
+volume_db = -12.0
+
+[node name="StartButtonPressed_SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_gnqye")
+volume_db = -12.0
+
+[connection signal="value_changed" from="StartMenu/VBoxContainer/MusicSlider" to="." method="on_music_slider_changed"]
+[connection signal="drag_ended" from="StartMenu/VBoxContainer/SFXSlider" to="." method="on_sfx_drag_ended"]
+[connection signal="value_changed" from="StartMenu/VBoxContainer/SFXSlider" to="." method="on_sfx_slider_changed"]
+[connection signal="button_up" from="StartMenu/VBoxContainer/StartButton" to="." method="on_start_pressed"]
+[connection signal="parse_final_values" from="HUD" to="Results" method="set_final_values"]
+[connection signal="value_changed" from="PauseMenu/VBoxContainer/MusicSlider" to="." method="on_music_slider_changed"]
+[connection signal="value_changed" from="PauseMenu/VBoxContainer/SFXSlider" to="." method="on_sfx_slider_changed"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/ContinueButton" to="." method="on_resume_pressed"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/RestartButton" to="." method="on_restart_pressed"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/MenuButton" to="." method="on_menu_pressed"]
+[connection signal="button_up" from="Results/Scores/VBoxContainer/HBoxContainer/Menu Button" to="." method="on_menu_pressed"]
+[connection signal="button_up" from="Results/Scores/VBoxContainer/HBoxContainer/Restart Button" to="." method="on_restart_pressed"]

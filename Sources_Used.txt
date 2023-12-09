@@ -1,0 +1,14 @@
+Sources:
+	Fonts:
+		Owls N' Ink by DubzyWubzyUbzy from BitFontMaker2
+	Sounds:
+		j1bonus_mono by jivatma07 from FreeSound.org
+		slide down sfx by ImATaco from FreeSound.org
+		Harsh 8-Bit Explosion by ImATaco from FreeSound.org
+		Other effects made using Sfxr
+	Music:
+		All music files are from the collection 'NES Shooter Music (5 tracks, 3 jingles)' by SketchyLogic at OpenGameArt.com
+	Sprites:
+		'explosion3' animation by: Jetrel at OpenGameArt.com
+	Shaders:
+		'Speed Lines Shader for Godot 4' by axilirate at GodotShaders.com

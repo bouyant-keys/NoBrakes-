@@ -1,0 +1,487 @@
+[gd_scene load_steps=44 format=3 uid="uid://dy7qq6ioxpvgy"]
+
+[ext_resource type="Shader" path="res://Materials/Road.gdshader" id="1_4px8k"]
+[ext_resource type="Texture2D" uid="uid://5cb2gsqe06fu" path="res://Sprites/_Road/outrun-road_SkyFull.png" id="1_5mybc"]
+[ext_resource type="PackedScene" uid="uid://dsjt21hpgl6e" path="res://Scenes/obstacle_spawner.tscn" id="1_gyjq8"]
+[ext_resource type="PackedScene" uid="uid://4724ig2ajk1s" path="res://Scenes/player.tscn" id="1_wqm8t"]
+[ext_resource type="PackedScene" uid="uid://cyd5xpcp6vbt" path="res://Scenes/ui_canvas.tscn" id="2_3qaex"]
+[ext_resource type="Texture2D" uid="uid://dsspht48s75lp" path="res://Sprites/_Road/outrun-road_lake4.png" id="3_i5ygn"]
+[ext_resource type="Texture2D" uid="uid://c7ngpqkbo7qy0" path="res://Sprites/_Road/outrun-mask_lake4.png" id="4_nvc1i"]
+[ext_resource type="Texture2D" uid="uid://bydrum5yx652i" path="res://Sprites/_Road/cloud_tilable.png" id="5_nrmao"]
+[ext_resource type="Script" path="res://Scripts/Shadow.gd" id="7_g375h"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="7_k3g7i"]
+[ext_resource type="Script" path="res://Scripts/MusicManager.gd" id="7_q4usf"]
+[ext_resource type="Texture2D" uid="uid://btpn6n04kehbc" path="res://Sprites/_Player/Delorean_Shadow.png" id="7_sjcoo"]
+[ext_resource type="Script" path="res://Scripts/Borders.gd" id="8_33jhk"]
+[ext_resource type="Script" path="res://Scripts/PlayerScoreLabel.gd" id="10_0ydwm"]
+[ext_resource type="PackedScene" uid="uid://cumhvlslncpcm" path="res://Scenes/danger_markers.tscn" id="10_5liqb"]
+[ext_resource type="Shader" path="res://Materials/pixelation.gdshader" id="10_vne1k"]
+[ext_resource type="FontFile" uid="uid://mcoftgppvxqx" path="res://Fonts/OwlsNInk.ttf" id="11_b1ty3"]
+[ext_resource type="Texture2D" uid="uid://d3n65ehih2ld5" path="res://Sprites/UI/OrangeArrows.png" id="13_41lc6"]
+[ext_resource type="Script" path="res://Scripts/DirectionArrows.gd" id="13_gnsyo"]
+[ext_resource type="Texture2D" uid="uid://cmvvmctm1acre" path="res://Sprites/UI/PinkArrows.png" id="14_ei1x2"]
+[ext_resource type="Shader" path="res://Materials/Screen_Melt.gdshader" id="17_k3g67"]
+[ext_resource type="Script" path="res://Scripts/TransitionScreen.gd" id="18_767af"]
+[ext_resource type="Shader" path="res://Scenes/SpeedLines.gdshader" id="20_smihy"]
+[ext_resource type="Texture2D" uid="uid://c8nk7ddg3v3ra" path="res://Materials/noise.tres" id="21_1c2mx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cek57"]
+shader = ExtResource("1_4px8k")
+shader_parameter/sky_offset = 0.0
+shader_parameter/sky_scroll_speed = 0.02
+shader_parameter/line_width = 2.5
+shader_parameter/speed = 35.0
+shader_parameter/road_offset = 0.0
+shader_parameter/curving = true
+shader_parameter/segment_curve = 0.0
+shader_parameter/segment_begin = 0.0
+shader_parameter/road_main = ExtResource("3_i5ygn")
+shader_parameter/road_mask = ExtResource("4_nvc1i")
+shader_parameter/sky_tex = ExtResource("5_nrmao")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ljlb"]
+size = Vector2(64, 750)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2c6wo"]
+size = Vector2(1280, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkvmq"]
+size = Vector2(32, 128)
+
+[sub_resource type="Animation" id="Animation_jvqio"]
+resource_name = "Flash_Loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PinkArrows:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_1c4xv"]
+resource_name = "Hold"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PinkArrows:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_j380x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PinkArrows:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kgshp"]
+_data = {
+"Flash_Loop": SubResource("Animation_jvqio"),
+"Hold": SubResource("Animation_1c4xv"),
+"RESET": SubResource("Animation_j380x")
+}
+
+[sub_resource type="Animation" id="Animation_jor8t"]
+resource_name = "BonusLabel_Flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 0.0834471, 0.512216, 1), Color(0.870588, 0.764706, 0.207843, 1), Color(1, 0.0834471, 0.512216, 1), Color(0.870588, 0.764706, 0.207843, 1), Color(1, 0.0834471, 0.512216, 1), Color(0.870588, 0.764706, 0.207843, 1), Color(1, 0.0834471, 0.512216, 1), Color(0.870588, 0.764706, 0.207843, 1), Color(1, 0.0834471, 0.512216, 1), Color(0.870588, 0.764706, 0.207843, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t2nxt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4fdd0"]
+_data = {
+"BonusLabel_Flash": SubResource("Animation_jor8t"),
+"RESET": SubResource("Animation_t2nxt")
+}
+
+[sub_resource type="Gradient" id="Gradient_r7b8y"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5p0v1"]
+gradient = SubResource("Gradient_r7b8y")
+
+[sub_resource type="Curve" id="Curve_42mf7"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 14.0, 0, 0, Vector2(1, 10), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rvkbm"]
+curve = SubResource("Curve_42mf7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ah1e"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_rvkbm")
+color_ramp = SubResource("GradientTexture1D_5p0v1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_li1be"]
+shader = ExtResource("20_smihy")
+shader_parameter/enabled = false
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_count = 2.0
+shader_parameter/line_density = 0.422
+shader_parameter/line_faloff = 0.75
+shader_parameter/mask_size = 0.0
+shader_parameter/mask_edge = 0.5
+shader_parameter/animation_speed = 8.0
+shader_parameter/noise = ExtResource("21_1c2mx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ra615"]
+shader = ExtResource("17_k3g67")
+shader_parameter/timer = 0.0
+shader_parameter/y_offsets = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 2, 1.5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/melting = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fey5t"]
+resource_local_to_scene = true
+shader = ExtResource("10_vne1k")
+shader_parameter/res = Vector2(640, 480)
+shader_parameter/mask_type = 2
+shader_parameter/bloom_type = 1
+shader_parameter/hardScan = -12.0
+shader_parameter/hardPix = -4.0
+shader_parameter/hardBloomScan = -2.0
+shader_parameter/hardBloomPix = 0.0
+shader_parameter/bloomAmount = 16.0
+shader_parameter/maskDark = 0.455
+shader_parameter/maskLight = 1.165
+
+[node name="Main" type="Node"]
+
+[node name="Sky_BG" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_5mybc")
+
+[node name="Road_Shader" type="ColorRect" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_cek57")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("7_k3g7i")
+boost_speed_increase = 15.0
+curve_tween_time = 2.5
+curve_range = Vector2(0.15, 0.24)
+time_til_curve_range = Vector2(5, 5)
+curve_wait_range = Vector2(5, 8)
+spawner_path = NodePath("../ObstacleSpawner")
+player_path = NodePath("../Player")
+road_bg = NodePath("../Road_Shader")
+speed_overlay = NodePath("../CanvasLayer/SpeedLine_Shader")
+
+[node name="CurveTimer" type="Timer" parent="GameManager"]
+wait_time = 6.0
+
+[node name="MusicManager" type="Node2D" parent="."]
+script = ExtResource("7_q4usf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager"]
+volume_db = -12.0
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource("1_gyjq8")]
+obstacle_parent_path = NodePath("../Obstacles")
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Borders" type="Node2D" parent="."]
+script = ExtResource("8_33jhk")
+
+[node name="LeftBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(-32, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
+shape = SubResource("RectangleShape2D_4ljlb")
+
+[node name="RightBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(672, 320)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
+shape = SubResource("RectangleShape2D_4ljlb")
+
+[node name="Roof" type="StaticBody2D" parent="Borders"]
+position = Vector2(320, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Roof"]
+shape = SubResource("RectangleShape2D_2c6wo")
+
+[node name="Floor" type="StaticBody2D" parent="Borders"]
+position = Vector2(320, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Floor"]
+shape = SubResource("RectangleShape2D_2c6wo")
+
+[node name="FallAreaLeft" type="Area2D" parent="Borders"]
+position = Vector2(16, 416)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/FallAreaLeft"]
+shape = SubResource("RectangleShape2D_mkvmq")
+debug_color = Color(0.835294, 0.384314, 0, 0.419608)
+
+[node name="FallAreaRight" type="Area2D" parent="Borders"]
+position = Vector2(624, 416)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/FallAreaRight"]
+shape = SubResource("RectangleShape2D_mkvmq")
+debug_color = Color(0.835294, 0.384314, 0, 0.419608)
+
+[node name="DangerMarkers" parent="." instance=ExtResource("10_5liqb")]
+
+[node name="Player_Shadow" type="Sprite2D" parent="."]
+z_index = 469
+position = Vector2(320, 415)
+scale = Vector2(2, 2)
+texture = ExtResource("7_sjcoo")
+script = ExtResource("7_g375h")
+player_path = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("1_wqm8t")]
+position = Vector2(320, 404)
+scale = Vector2(2, 2)
+speed = 300.0
+
+[node name="DirectionArrows" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13_gnsyo")
+
+[node name="OrangeArrows" type="TextureRect" parent="DirectionArrows"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -148.0
+offset_right = 128.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(128, 64)
+mouse_filter = 2
+texture = ExtResource("13_41lc6")
+
+[node name="PinkArrows" type="TextureRect" parent="DirectionArrows"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -148.0
+offset_right = 128.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(128, 64)
+mouse_filter = 2
+texture = ExtResource("14_ei1x2")
+
+[node name="ArrowFlash" type="AnimationPlayer" parent="DirectionArrows"]
+libraries = {
+"": SubResource("AnimationLibrary_kgshp")
+}
+
+[node name="PlayerBonusLabel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_0ydwm")
+player_path = NodePath("../Player")
+
+[node name="Label" type="Label" parent="PlayerBonusLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.5
+offset_top = -9.5
+offset_right = 18.5
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_b1ty3")
+theme_override_font_sizes/font_size = 32
+text = "+1000 "
+vertical_alignment = 1
+
+[node name="BonusLabelAnim" type="AnimationPlayer" parent="PlayerBonusLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_4fdd0")
+}
+
+[node name="UICanvas" parent="." instance=ExtResource("2_3qaex")]
+z_index = 500
+trans_path = NodePath("../CanvasLayer/MeltTransition")
+
+[node name="Speed_Lines" type="GPUParticles2D" parent="."]
+position = Vector2(320, 240)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_0ah1e")
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.5
+trail_sections = 2
+trail_section_subdivisions = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SpeedLine_Shader" type="ColorRect" parent="CanvasLayer"]
+z_index = 900
+material = SubResource("ShaderMaterial_li1be")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MeltTransition" type="ColorRect" parent="CanvasLayer"]
+visible = false
+z_index = 1000
+material = SubResource("ShaderMaterial_ra615")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.596078, 0, 0.239216, 1)
+script = ExtResource("18_767af")
+x_resolution = 256.0
+melt_speed = 0.02
+
+[node name="CRTOverlay_Shader" type="ColorRect" parent="CanvasLayer"]
+light_mask = 0
+visibility_layer = 512
+material = SubResource("ShaderMaterial_fey5t")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="begin_playing" from="GameManager" to="Player" method="begin_playing"]
+[connection signal="begin_playing" from="GameManager" to="UICanvas" method="start_stopwatch"]
+[connection signal="curving" from="GameManager" to="ObstacleSpawner" method="update_origin_pos"]
+[connection signal="curving" from="GameManager" to="Borders" method="update_fall_areas"]
+[connection signal="curving" from="GameManager" to="Player" method="apply_curve_force"]
+[connection signal="end_playing" from="GameManager" to="UICanvas" method="display_results"]
+[connection signal="pause_curving" from="GameManager" to="ObstacleSpawner" method="pause_origin_pos"]
+[connection signal="pause_obstacles" from="GameManager" to="ObstacleSpawner" method="pause_timers"]
+[connection signal="reset_game" from="GameManager" to="ObstacleSpawner" method="clear_obstacles"]
+[connection signal="reset_game" from="GameManager" to="Player" method="reset_position"]
+[connection signal="upcoming_curve" from="GameManager" to="DirectionArrows" method="on_curve"]
+[connection signal="timeout" from="GameManager/CurveTimer" to="GameManager" method="curve_road"]
+[connection signal="area_entered" from="Borders/FallAreaLeft" to="Player" method="on_trigger"]
+[connection signal="area_entered" from="Borders/FallAreaRight" to="Player" method="on_trigger"]
+[connection signal="boost" from="Player" to="GameManager" method="boost"]
+[connection signal="boost" from="Player" to="ObstacleSpawner" method="boost"]
+[connection signal="boost" from="Player" to="Borders" method="boost"]
+[connection signal="boost" from="Player" to="UICanvas" method="add_boost"]
+[connection signal="pause_game" from="Player" to="GameManager" method="pause_game"]
+[connection signal="pause_game" from="Player" to="ObstacleSpawner" method="pause_timers"]
+[connection signal="pause_game" from="Player" to="UICanvas" method="pause"]
+[connection signal="player_crash" from="Player" to="GameManager" method="on_stop_call"]
+[connection signal="player_crash" from="Player" to="UICanvas" method="on_player_crash"]
+[connection signal="player_hit" from="Player" to="UICanvas" method="update_health"]
+[connection signal="point_bonus" from="Player" to="PlayerBonusLabel" method="display_bonus"]
+[connection signal="point_bonus" from="Player" to="UICanvas" method="add_to_score"]
+[connection signal="show_results" from="Player" to="UICanvas" method="display_results"]
+[connection signal="music_change" from="UICanvas" to="MusicManager" method="change_music"]
+[connection signal="reset_game" from="UICanvas" to="GameManager" method="on_reset_call"]
+[connection signal="start_game" from="UICanvas" to="GameManager" method="on_start_call"]
+[connection signal="stop_game" from="UICanvas" to="GameManager" method="on_stop_call"]
+[connection signal="un_pause" from="UICanvas" to="GameManager" method="pause_game"]
+[connection signal="un_pause" from="UICanvas" to="ObstacleSpawner" method="pause_timers"]
+[connection signal="un_pause" from="UICanvas" to="Player" method="pause"]
+[connection signal="update_music_vol" from="UICanvas" to="MusicManager" method="update_music_volume"]
+[connection signal="update_sfx_vol" from="UICanvas" to="Player" method="update_sfx_volume"]
