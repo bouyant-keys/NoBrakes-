@@ -1,3 +1,0 @@
-General Ideas:
-	You play as a driver whose vehicle cannot break, you must swerve to avoid obstacles and try to survive
-	Style of space harrier using only sprites, but confined to the floor

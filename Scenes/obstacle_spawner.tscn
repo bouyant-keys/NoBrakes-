@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://dsjt21hpgl6e"]
 
 [ext_resource type="Script" path="res://Scripts/Obstacle_Spawner.gd" id="1_hj16l"]
-[ext_resource type="Texture2D" uid="uid://cbe71iadaq40f" path="res://Sprites/Interact_Visual.png" id="2_rgumu"]
 [ext_resource type="Script" path="res://Scripts/Obstacle_Sprites.gd" id="2_tfkab"]
 [ext_resource type="Script" path="res://Scripts/RoadOriginPos.gd" id="3_io5g7"]
+[ext_resource type="Texture2D" uid="uid://cbe71iadaq40f" path="res://Sprites/UI/Interact_Visual.png" id="3_y74x0"]
 [ext_resource type="Script" path="res://Scripts/EndRoadPos.gd" id="5_aduw6"]
 
 [sub_resource type="Curve" id="Curve_gu7h8"]
@@ -35,7 +35,7 @@ position = Vector2(320, 240)
 
 [node name="Sprite2D" type="Sprite2D" parent="RoadLinearOrigin"]
 visible = false
-texture = ExtResource("2_rgumu")
+texture = ExtResource("3_y74x0")
 
 [node name="RoadCurveOrigin" type="Node2D" parent="."]
 script = ExtResource("3_io5g7")
@@ -43,7 +43,7 @@ script = ExtResource("3_io5g7")
 [node name="Sprite2D" type="Sprite2D" parent="RoadCurveOrigin"]
 visible = false
 self_modulate = Color(0, 1, 1, 1)
-texture = ExtResource("2_rgumu")
+texture = ExtResource("3_y74x0")
 
 [node name="RoadEndPos" type="Node2D" parent="."]
 position = Vector2(320, 480)
@@ -55,7 +55,7 @@ visible = false
 self_modulate = Color(1, 0, 0, 1)
 texture_filter = 1
 scale = Vector2(3, 3)
-texture = ExtResource("2_rgumu")
+texture = ExtResource("3_y74x0")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 1.3

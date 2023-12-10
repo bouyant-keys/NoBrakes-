@@ -1,4 +1,0 @@
-Things to fix:
-	- Fix speed particles
-	- Make github repo
-
