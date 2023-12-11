@@ -37,6 +37,9 @@ var sprite_index := 0
 @onready var bonus_sfx1 = $Bonus_SFX
 @onready var bonus_sfx2 = $Bonus_SFX2
 
+#var save_path = "user://"
+#var screenshot
+
 signal show_results
 signal player_crash
 signal player_hit(health:int)
@@ -89,6 +92,14 @@ func _process(_delta):
 		if !GameManager.is_playing: return
 		elif GameManager.paused: pause(false)
 		else: pause(true)
+	# Used to save screenshots
+	#if Input.is_action_just_pressed("Screenshot"):
+		#screenshot = get_viewport().get_texture().get_image()
+		#screenshot.save_png(screenshot_path())
+
+#func screenshot_path() ->String:
+	#var filename = "screenshot" + str(Time.get_ticks_msec()) + ".png"
+	#return save_path + filename
 
 func pause(active:bool):
 	if active:
@@ -196,7 +207,7 @@ func fall_out():
 func reset_position():
 	health = 3
 	boosting = false
-	anim_player.stop()
+	anim_player.play("RESET")
 	sprite.self_modulate = Color.WHITE
 	emit_signal("boost", false)
 	emit_signal("player_hit", health)

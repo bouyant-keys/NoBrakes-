@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dsjt21hpgl6e"]
 
 [ext_resource type="Script" path="res://Scripts/Obstacle_Spawner.gd" id="1_hj16l"]
-[ext_resource type="Script" path="res://Scripts/Obstacle_Sprites.gd" id="2_tfkab"]
+[ext_resource type="Script" path="res://Scripts/SpriteList.gd" id="2_uv6tm"]
 [ext_resource type="Script" path="res://Scripts/RoadOriginPos.gd" id="3_io5g7"]
 [ext_resource type="Texture2D" uid="uid://cbe71iadaq40f" path="res://Sprites/UI/Interact_Visual.png" id="3_y74x0"]
 [ext_resource type="Script" path="res://Scripts/EndRoadPos.gd" id="5_aduw6"]
@@ -28,7 +28,7 @@ x_offset_curve = SubResource("Curve_ic875")
 boost_change = 1.5
 
 [node name="SpriteList" type="Node2D" parent="."]
-script = ExtResource("2_tfkab")
+script = ExtResource("2_uv6tm")
 
 [node name="RoadLinearOrigin" type="Node2D" parent="."]
 position = Vector2(320, 240)

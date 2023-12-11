@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dy7qq6ioxpvgy"]
+[gd_scene load_steps=39 format=3 uid="uid://dy7qq6ioxpvgy"]
 
 [ext_resource type="Shader" path="res://Materials/Road.gdshader" id="1_4px8k"]
 [ext_resource type="Texture2D" uid="uid://5cb2gsqe06fu" path="res://Sprites/_Road/outrun-road_SkyFull.png" id="1_5mybc"]
@@ -138,29 +138,6 @@ _data = {
 "BonusLabel_Flash": SubResource("Animation_jor8t"),
 "RESET": SubResource("Animation_t2nxt")
 }
-
-[sub_resource type="Gradient" id="Gradient_r7b8y"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_5p0v1"]
-gradient = SubResource("Gradient_r7b8y")
-
-[sub_resource type="Curve" id="Curve_42mf7"]
-max_value = 10.0
-_data = [Vector2(0, 0), 0.0, 14.0, 0, 0, Vector2(1, 10), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_rvkbm"]
-curve = SubResource("Curve_42mf7")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ah1e"]
-particle_flag_align_y = true
-particle_flag_disable_z = true
-spread = 180.0
-gravity = Vector3(0, 0, 0)
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_rvkbm")
-color_ramp = SubResource("GradientTexture1D_5p0v1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_li1be"]
 shader = ExtResource("20_smihy")
@@ -396,16 +373,6 @@ libraries = {
 [node name="UICanvas" parent="." instance=ExtResource("2_3qaex")]
 z_index = 500
 trans_path = NodePath("../CanvasLayer/MeltTransition")
-
-[node name="Speed_Lines" type="GPUParticles2D" parent="."]
-position = Vector2(320, 240)
-amount = 16
-process_material = SubResource("ParticleProcessMaterial_0ah1e")
-explosiveness = 1.0
-trail_enabled = true
-trail_lifetime = 0.5
-trail_sections = 2
-trail_section_subdivisions = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
