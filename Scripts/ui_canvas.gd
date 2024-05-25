@@ -16,6 +16,7 @@ signal stop_game
 signal reset_game
 signal update_music_vol(value:float)
 signal update_sfx_vol(value:float)
+signal update_brightness(value:float)
 signal music_change(index:int)
 
 
@@ -113,6 +114,12 @@ func on_sfx_slider_changed(value:float):
 	emit_signal("update_sfx_vol", value)
 func on_sfx_drag_ended(_value:bool):
 	button_sfx.play()
+
+func on_brightness_slider_changed(value:float):
+	# Range from 0 - 1
+	button_sfx.play()
+	emit_signal("update_brightness", value)
+
 
 #
 # Recieved signals

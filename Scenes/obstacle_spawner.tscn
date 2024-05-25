@@ -11,7 +11,7 @@ _data = [Vector2(0.25, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 4.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_urlis"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 3.19453, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0276362, 0, 0, Vector2(1, 1), 2.15789, 0.0, 0, 0]
 point_count = 2
 metadata/_snap_enabled = true
 

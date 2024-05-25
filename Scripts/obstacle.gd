@@ -7,6 +7,8 @@ var z_pos = 0.0
 var start_node_x
 var end_node_x
 
+var speed_mult = 60.0
+
 var move_time = 180
 var elapsed_time = 0.0
 
@@ -23,7 +25,7 @@ func _enter_tree():
 	move_time = 180.0 - GameManager.speed
 	z_pos = start_z
 
-func _process(_delta):
+func _process(delta):
 	if GameManager.speed == 0.0: return
 	elif position.y >= 480.0: 
 		#print("Freeing " + name + " from queue")
@@ -57,7 +59,7 @@ func _process(_delta):
 	if (position.y > 450.0 and position.y < 465.0): monitorable = true
 	else: set_deferred("monitorable", false)
 	
-	elapsed_time += 1.0
+	elapsed_time += 1.0 * (delta * speed_mult)
 
 func linear_x_pos(y_pos:float, start_x:float, end_x:float) -> float:
 	# Find slope of line through two points, then calculate x_pos on that line using y_pos

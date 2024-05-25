@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dy7qq6ioxpvgy"]
+[gd_scene load_steps=40 format=3 uid="uid://dy7qq6ioxpvgy"]
 
 [ext_resource type="Shader" path="res://Materials/Road.gdshader" id="1_4px8k"]
 [ext_resource type="Texture2D" uid="uid://5cb2gsqe06fu" path="res://Sprites/_Road/outrun-road_SkyFull.png" id="1_5mybc"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://Scripts/TransitionScreen.gd" id="18_767af"]
 [ext_resource type="Shader" path="res://Scenes/SpeedLines.gdshader" id="20_smihy"]
 [ext_resource type="Texture2D" uid="uid://c8nk7ddg3v3ra" path="res://Materials/noise.tres" id="21_1c2mx"]
+[ext_resource type="Script" path="res://Scenes/crt_settings.gd" id="25_m268u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cek57"]
 shader = ExtResource("1_4px8k")
@@ -160,7 +161,7 @@ shader_parameter/melting = false
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fey5t"]
 resource_local_to_scene = true
 shader = ExtResource("10_vne1k")
-shader_parameter/res = Vector2(640, 480)
+shader_parameter/res = Vector2(1280, 960)
 shader_parameter/mask_type = 2
 shader_parameter/bloom_type = 1
 shader_parameter/hardScan = -12.0
@@ -168,8 +169,8 @@ shader_parameter/hardPix = -4.0
 shader_parameter/hardBloomScan = -2.0
 shader_parameter/hardBloomPix = 0.0
 shader_parameter/bloomAmount = 16.0
-shader_parameter/maskDark = 0.455
-shader_parameter/maskLight = 1.165
+shader_parameter/maskDark = 0.5
+shader_parameter/maskLight = 1.0
 
 [node name="Main" type="Node"]
 
@@ -399,7 +400,7 @@ mouse_filter = 2
 color = Color(0.596078, 0, 0.239216, 1)
 script = ExtResource("18_767af")
 x_resolution = 256.0
-melt_speed = 0.02
+melt_speed = 1.0
 
 [node name="CRTOverlay_Shader" type="ColorRect" parent="CanvasLayer"]
 light_mask = 0
@@ -408,13 +409,10 @@ material = SubResource("ShaderMaterial_fey5t")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 2.0
-offset_right = 1.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("25_m268u")
 
 [connection signal="begin_playing" from="GameManager" to="Player" method="begin_playing"]
 [connection signal="begin_playing" from="GameManager" to="UICanvas" method="start_stopwatch"]
@@ -450,5 +448,6 @@ mouse_filter = 2
 [connection signal="un_pause" from="UICanvas" to="GameManager" method="pause_game"]
 [connection signal="un_pause" from="UICanvas" to="ObstacleSpawner" method="pause_timers"]
 [connection signal="un_pause" from="UICanvas" to="Player" method="pause"]
+[connection signal="update_brightness" from="UICanvas" to="CanvasLayer/CRTOverlay_Shader" method="update_shader_brightness"]
 [connection signal="update_music_vol" from="UICanvas" to="MusicManager" method="update_music_volume"]
 [connection signal="update_sfx_vol" from="UICanvas" to="Player" method="update_sfx_volume"]

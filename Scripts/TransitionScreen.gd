@@ -13,11 +13,11 @@ func _ready():
 	hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	#if Input.is_action_just_pressed("Dev_Add"): print(self.material.get_shader_parameter("screen_tex"))
 	
 	if melting:
-		timer += melt_speed
+		timer += melt_speed * delta
 		self.material.set_shader_parameter("timer", timer)
 
 func generate_offsets():

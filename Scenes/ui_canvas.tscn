@@ -125,7 +125,6 @@ script = ExtResource("1_37gxr")
 metadata/_edit_use_anchors_ = true
 
 [node name="StartMenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,16 +161,15 @@ stretch_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="StartMenu"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -108.0
-offset_top = -172.0
 offset_right = 108.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+alignment = 2
 
 [node name="StartText" type="Label" parent="StartMenu/VBoxContainer"]
 texture_filter = 1
@@ -207,6 +205,24 @@ horizontal_alignment = 2
 vertical_alignment = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="BrightnessLabel" type="Label" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_x103b")
+theme_override_font_sizes/font_size = 16
+text = "Brightness: "
+vertical_alignment = 2
+
+[node name="BrightnessSlider" type="HSlider" parent="StartMenu/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 6
+max_value = 1.0
+step = 0.05
+value = 0.5
+
 [node name="MusicLabel" type="Label" parent="StartMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_x103b")
@@ -214,7 +230,7 @@ theme_override_font_sizes/font_size = 16
 text = "Music Volume: "
 vertical_alignment = 2
 
-[node name="MusicSlider" type="HSlider" parent="StartMenu/VBoxContainer"]
+[node name="MusicSlider2" type="HSlider" parent="StartMenu/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 6
@@ -237,14 +253,6 @@ min_value = -60.0
 max_value = 0.0
 value = -12.0
 
-[node name="Space3" type="Label" parent="StartMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_x103b")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
-vertical_alignment = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="StartButton" type="Button" parent="StartMenu/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
@@ -252,14 +260,6 @@ mouse_filter = 1
 theme_override_fonts/font = ExtResource("3_x103b")
 theme_override_font_sizes/font_size = 32
 text = " START "
-
-[node name="Space2" type="Label" parent="StartMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_x103b")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 2
-vertical_alignment = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="StartMenuTextFlash" type="AnimationPlayer" parent="StartMenu"]
 libraries = {
@@ -777,6 +777,7 @@ theme_override_font_sizes/font_size = 32
 text = "Menu"
 
 [node name="Restart Button" type="Button" parent="Results/Scores/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -792,7 +793,8 @@ volume_db = -12.0
 stream = ExtResource("16_gnqye")
 volume_db = -12.0
 
-[connection signal="value_changed" from="StartMenu/VBoxContainer/MusicSlider" to="." method="on_music_slider_changed"]
+[connection signal="value_changed" from="StartMenu/VBoxContainer/BrightnessSlider" to="." method="on_brightness_slider_changed"]
+[connection signal="value_changed" from="StartMenu/VBoxContainer/MusicSlider2" to="." method="on_music_slider_changed"]
 [connection signal="drag_ended" from="StartMenu/VBoxContainer/SFXSlider" to="." method="on_sfx_drag_ended"]
 [connection signal="value_changed" from="StartMenu/VBoxContainer/SFXSlider" to="." method="on_sfx_slider_changed"]
 [connection signal="button_up" from="StartMenu/VBoxContainer/StartButton" to="." method="on_start_pressed"]
